@@ -1,2 +1,0 @@
-# List of installed packages (name version)
-# logger 1.0.0

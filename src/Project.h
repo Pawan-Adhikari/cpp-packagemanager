@@ -10,6 +10,7 @@ private:
 public:
     Project(const char* projectName);
     void initialize();
+    static void list_modules();
 };
 
 #endif

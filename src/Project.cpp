@@ -1,7 +1,10 @@
 #include "Project.h"
 #include <iostream>
-#include <cstdlib>  // For system()
+#include <cstdlib>  
 #include <string>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 Project::Project(const char* projectName) {
     name = (projectName);
@@ -11,7 +14,6 @@ Project::Project(const char* projectName) {
 void Project::initialize() {
     std::cout << "Initializing project: " << name << std::endl;
     
-    // Create project directory structure using system calls
     std::string mkdirCmd = "mkdir -p " + name;
     std::system(mkdirCmd.c_str());
     
@@ -34,4 +36,23 @@ void Project::initialize() {
     std::system(copy_packagestxt.c_str());
 
     std::cout << "Project structure created successfully!" << std::endl;
+}
+
+void Project::list_modules(){
+    fs::path folder = "./include/";  
+    std::vector<std::string> file_names;
+    for (const auto& entry : fs::directory_iterator(folder)) {
+        if (entry.is_regular_file()) {
+            file_names.push_back(entry.path().filename().string());
+        }
+    }
+    if (file_names.size() == 0){
+        std::cout << "No Packages found in this directory." <<std::endl;
+    }
+    else{
+        std::cout << "Installed Packages: " <<std::endl;
+        for (const auto& name : file_names) {
+                std::cout << "-" << name << std::endl;
+        }
+    }
 }

@@ -32,6 +32,7 @@ int main(int argc, char* argv[]){
     }
     else if (argc == 2){
         if (!(strcmp(argv[1],"list"))){
+            Project::list_modules();
         }
         else {
         cout << "Invalid usage" << endl;
