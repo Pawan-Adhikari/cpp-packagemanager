@@ -10,6 +10,7 @@ class Package{
         std::string src_path;
 
     public:
+        Package(){}
         Package(const std::string& pac){
             module_name = pac;
         }
@@ -17,5 +18,16 @@ class Package{
         void removeFrom(const std::string path = ".");
 };
 
-
+class Remote_Package:public Package{
+    private:
+        std::string URL;
+    public:
+        Remote_Package(const std::string& shorthand){
+            URL = "https://github.com/" + shorthand + ".git";
+        }
+        void Clone();
+        void Copy_headers();
+        void Copy_src();
+        void remove_temp();
+};
 #endif
